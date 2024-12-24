@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-size: cover;
+            color: white;
+            text-align: center;
+        }        
+        .chatbox {
+            margin-top: 50px;
+            background-color: rgba(0, 0, 0, 0.7);
+            
+            padding: 20px;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .chatbox input, .chatbox button {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            border-radius: 5px;
+            border: none;
+        }
+        .chatbox div {
+            background-color: #444;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            width: 100%;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="chatbox">
+        <h1>Chatbot</h1>
+        <div id="chat-area">
+            <!-- Chat messages will appear here -->
+        </div>
+        <input type="text" id="user-message" placeholder="Ask me anything..." />
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const message = document.getElementById('user-message').value;
+            if (message.trim() === "") return;
+
+            // Display user message
+            const userMessageElement = document.createElement('div');
+            userMessageElement.textContent = "You: " + message;
+            document.getElementById('chat-area').appendChild(userMessageElement);
+
+            // Send the message to the server
+            fetch('/chatbot_response', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `message=${message}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                const chatbotMessageElement = document.createElement('div');
+                chatbotMessageElement.textContent = "Chatbot: " + data.response;
+                document.getElementById('chat-area').appendChild(chatbotMessageElement);
+            })
+            .catch(error => {
+                const errorMessageElement = document.createElement('div');
+                errorMessageElement.textContent = "Error: Unable to fetch response.";
+                document.getElementById('chat-area').appendChild(errorMessageElement);
+            });
+
+            // Clear input field
+            document.getElementById('user-message').value = '';
+        }
+    </script>
+</body>
+</html>

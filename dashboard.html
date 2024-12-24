@@ -1,0 +1,900 @@
+	<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url(https://github.com/AkhilArya2023/Credit-Card-Fraud-Detection/blob/main/%E2%80%94Pngtree%E2%80%94abstract%20wireframe%20of%20a%20digital_15881331.jpg?raw=true);
+            background-size: cover;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            margin-top: 50px;
+            padding: 30px;
+            border-radius: 10px;
+            display: inline-block;
+            width: 80%;
+            max-width: 1200px;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #444;
+        }
+        .transaction-form {
+            margin-top: 30px;
+            background-color: transparent;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        .transaction-form input, .transaction-form button {
+            width: 100%;
+            max-width: 350px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .status {
+            font-size: 20px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        h1, h2 {
+            font-family: 'Times New Roman', Times, serif;
+            color: black; 
+        }
+
+        /* Chatbox styling */
+        .chatbox-container {
+            position: fixed;
+            right: 20px;
+            bottom: 80px; /* Adjusted to move it a bit higher */
+            width: 300px;
+            height: 400px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 10px;
+            display: none; /* Hide chatbox initially */
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+        .chatbox-header {
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 10px;
+        }
+        .chatbox-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            color: white;
+        }
+        .chatbox-input {
+            display: flex;
+        }
+        .chatbox-input input {
+            width: 80%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+        .chatbox-input button {
+            width: 20%;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #444;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .chatbox-input button:hover {
+            background-color: #555;
+        }
+
+        /* Robot Icon Styling */
+        .robot-icon {
+            position: fixed;
+            right: 20px;
+            bottom: 20px; /* Positioned just above the chatbox */
+            width: 50px;
+            height: 50px;
+            background-color: #444;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease;
+        }
+        .robot-icon img {
+            max-width: 70%; 
+            max-height: 70%; 
+            border-radius: 50%;
+            object-fit: contain; 
+        }
+
+        .robot-icon:hover {
+            background-color: #555;
+           
+        }
+
+        /* Hide the chatbox when it's minimized */
+        .chatbox-container.minimized {
+            height: 50px;
+            width: 50px;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chatbox-container.minimized .chatbox-header,
+        .chatbox-container.minimized .chatbox-messages,
+        .chatbox-container.minimized .chatbox-input {
+            display: none;
+        }
+
+        .robot-icon.hidden {
+            opacity: 0; /* Hide robot icon when chatbox is open */
+        }
+#logout-button {
+    position: absolute; /* Use absolute positioning */
+    top: 20px; /* Distance from the top */
+right: 10px; /* Position Logout to the left of Contact Us */
+    background-color: #ff4c4c; /* Red background */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px; /* Padding */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s; /* Transition effect */
+}
+
+#contact-us-button {
+    position: absolute; /* Use absolute positioning */
+    top: 20px; /* Same distance from the top as Logout */
+   right: 130px; /* Rightmost button */
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px; /* Padding */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s; /* Transition effect */
+}
+
+/* Hover Effects */
+#logout-button:hover {
+    background-color: #ff0000; /* Darker red on hover */
+}
+
+#contact-us-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+
+
+
+    </style>
+</head>
+<body>
+<div class="container">
+        <div style="text-align: right; margin-bottom: 20px;">
+            <button id="logout-button">Logout</button>
+        
+		 <button id="contact-us-button">Contact Us</button>
+		 
+    </div>
+       
+		
+      <div class="welcome-container">
+    <!-- Welcome Message -->
+    <div class="welcome-message">
+        <h2>
+            Welcome to the Credit Card Fraud Detection Dashboard!
+        </h2>
+        <p>
+            Your financial security is our top priority. Use this platform to:
+        </p>
+        <ul>
+            <li>Monitor your transaction history in real-time.</li>
+            <li>Review flagged transactions for potential fraud.</li>
+            <li>Access detailed fraud reports and summaries.</li>
+            <li>Get assistance via our AI-powered chatbot.</li>
+        </ul>
+        <p class="footer">
+            Stay secure, and enjoy a seamless experience!
+        </p>
+    </div>
+
+    <!-- Form to input transaction details -->
+    <div class="transaction-form">
+        <h2>Check Transaction Status</h2>
+        <input type="text" id="user-id" placeholder="User ID" required><br>
+        <input type="text" id="bank-name" placeholder="Bank Name" required><br>
+        <input type="number" id="transaction-amount" placeholder="Transaction Amount" required><br>
+        <input type="text" id="transaction-location" placeholder="Location" required><br>
+        <input type="text" id="transaction-type" placeholder="Transaction Type (ATM/Online/POS)" required><br>
+        <input type="number" id="frequency" placeholder="Frequency" required><br>
+        <button id="check-status-button">Check Fraud/Safe</button>
+        <div id="transaction-status" class="status"></div>
+    </div>
+</div>
+
+<style>
+  /* Layout for welcome message and transaction form side by side */
+.welcome-container {
+    display: flex;
+    justify-content: flex-end; /* Align items to the right */
+    align-items: flex-start;
+    margin: 10px 40px; /* Adjust margin to move it closer to the top */
+    padding-top: 10px; /* Optional: Add padding to the top for spacing */
+}
+    /* Welcome message styling */
+    .welcome-message {
+        background: transparent;
+        padding: 30px;
+        margin-right: 30px; /* Increased margin to give more space between welcome text and form */
+        border-radius: 15px;
+        color: #ffffff;
+        max-width: 45%;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        animation: fadeIn 2s ease-in-out; /* Add fadeIn animation */
+        margin-left: 15px; /* Added margin to push the text slightly left */
+    }
+
+    .welcome-message h2 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #ffd700; /* Bright yellow */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        margin-bottom: 20px;
+        animation: slideInLeft 1s ease-out; /* Slide-in animation for the heading */
+    }
+
+    .welcome-message p {
+        font-size: 1.3rem;
+        line-height: 1.8;
+        margin-bottom: 15px;
+        color: #e6e6e6;
+    }
+
+    .welcome-message ul {
+        list-style: disc;
+        padding-left: 40px;
+        font-size: 1.1rem;
+        color: #e6e6e6;
+        margin-bottom: 20px;
+    }
+
+    .welcome-message ul li {
+        margin: 12px 0;
+        font-weight: bold;
+    }
+
+    .footer {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #ffdf5e; /* Light yellow */
+        margin-top: 20px;
+        font-style: italic;
+        animation: fadeInUp 1.5s ease-out; /* Animation for the footer */
+    }
+
+    /* Transaction form styling */
+    .transaction-form {
+        background: rgba(30, 60, 114, 0.7); /* Semi-transparent background */
+        backdrop-filter: blur(10px); /* Adds blur effect */
+        padding: 30px;
+        margin-top: 40px;
+        max-width: 45%;
+        border-radius: 15px;
+        color: #fff;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .transaction-form h2 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #ffd700; /* Yellow color */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        margin-bottom: 20px;
+    }
+
+    .transaction-form input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 2px solid #00bfff; /* Light blue border */
+        border-radius: 8px;
+        background-color: rgba(0, 0, 0, 0.2); /* Slightly darker transparent background */
+        color: #fff;
+        font-size: 1rem;
+        transition: 0.3s;
+    }
+
+    .transaction-form input::placeholder {
+        color: #ffffff; /* Ensures placeholder text is visible */
+    }
+
+    .transaction-form input:focus {
+        outline: none;
+        border-color: #28a745; /* Green border on focus */
+        background-color: rgba(0, 0, 0, 0.3); /* Darker transparent background on focus */
+    }
+
+    .transaction-form button {
+        width: 100%;
+        padding: 12px;
+        background-color: #28a745; /* Green background */
+        border: none;
+        border-radius: 8px;
+        font-size: 1.2rem;
+        color: #fff;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s;
+    }
+
+    .transaction-form button:hover {
+        background-color: #218838; /* Darker green on hover */
+    }
+
+    .status {
+        margin-top: 20px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #ffd700; /* Yellow color */
+        text-align: center;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+        0% { opacity: 0; transform: translateY(10px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideInLeft {
+        0% { opacity: 0; transform: translateX(-100%); }
+        100% { opacity: 1; transform: translateX(0); }
+    }
+</style>
+
+
+<!-- Transaction result report section -->
+<div id="transaction-report" class="transaction-report"></div>
+
+<style>
+    /* Form styling */
+    .transaction-form {
+        background: rgba(255, 255, 255, 0.4); /* Light transparent background */
+        padding: 30px;
+        margin-top: 40px;
+        max-width: 450px;
+        border-radius: 15px;
+        color: #fff;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 20px auto;
+    }
+
+    .transaction-form h2 {
+        font-size: 2.2rem;
+        font-weight: 600;
+        color: #ffd700; /* Yellow color for the title */
+        text-align: center;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .transaction-form input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 2px solid #00bfff; /* Light blue border */
+        border-radius: 8px;
+        background-color: rgba(0, 0, 0, 0.2); /* Slightly darker transparent background */
+        color: #fff;
+        font-size: 1rem;
+        transition: 0.3s;
+    }
+
+    .transaction-form input::placeholder {
+        color: #ffffff; /* Ensures placeholder text is visible */
+    }
+
+    .transaction-form input:focus {
+        outline: none;
+        border-color: #28a745; /* Green border on focus */
+        background-color: rgba(0, 0, 0, 0.3); /* Darker transparent background on focus */
+    }
+
+    .transaction-form button {
+        width: 100%;
+        padding: 12px;
+        background-color: #28a745; /* Green background */
+        border: none;
+        border-radius: 8px;
+        font-size: 1.2rem;
+        color: #fff;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s;
+    }
+
+    .transaction-form button:hover {
+        background-color: #218838; /* Darker green on hover */
+    }
+
+    /* Status message */
+    .status {
+        margin-top: 20px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #ffd700; /* Yellow color */
+        text-align: center;
+    }
+
+    /* Transaction result report */
+    .transaction-report {
+        margin-top: 20px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        display: none; /* Hidden initially */
+    }
+
+    /* Table like layout for the transaction report */
+    .transaction-report table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: 'Arial', sans-serif;
+        margin-top: 20px;
+    }
+
+    .transaction-report th, .transaction-report td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+    .transaction-report h3 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+
+    /* Red for fraud result */
+    .fraud-status {
+        color: #ff0000; /* Red for fraud */
+        background-color: rgba(255, 0, 0, 0.2); /* Light red background */
+    }
+
+    /* Green for safe result */
+    .safe-status {
+        color: #28a745; /* Green for safe transactions */
+        background-color: rgba(40, 167, 69, 0.2); /* Light green background */
+    }
+
+    /* Remove background for report table */
+    .transaction-report td {
+        background-color: transparent;
+    }
+
+    /* Add animation for hover effect on the inputs */
+    .transaction-form input:hover {
+        transform: scale(1.05);
+    }
+
+    .transaction-form button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(0, 255, 255, 0.5); /* Light blue glow */
+    }
+</style>
+
+<script>
+    // Handle checking fraud/safe for a transaction
+    document.getElementById('check-status-button').addEventListener('click', function(event) {
+        event.preventDefault();
+
+        const userId = document.getElementById('user-id').value;
+        const bankName = document.getElementById('bank-name').value;
+        const transactionAmount = parseFloat(document.getElementById('transaction-amount').value);
+        const transactionLocation = document.getElementById('transaction-location').value;
+        const transactionType = document.getElementById('transaction-type').value;
+        const frequency = parseInt(document.getElementById('frequency').value);
+
+        if (!userId || !bankName || !transactionAmount || !transactionLocation || !transactionType || !frequency) {
+            alert('Please fill out all fields.');
+            return;
+        }
+
+        // Send the transaction details to the backend for fraud check
+        fetch('/process_transaction', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                user_id: userId,
+                bank_name: bankName,
+                transaction_amount: transactionAmount,
+                transaction_location: transactionLocation,
+                transaction_type: transactionType,
+                frequency: frequency,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            const statusElement = document.getElementById('transaction-status');
+            statusElement.innerHTML = `Transaction Status: <strong class="${data.status.toLowerCase()}-status">${data.status}</strong>`;
+            statusElement.style.color = data.status === "Fraud" ? '#ff0000' : '#28a745';  // Red for fraud, green for safe
+
+            // Show detailed transaction result in a table format
+            const reportElement = document.getElementById('transaction-report');
+            reportElement.style.display = 'block'; // Display the report section
+            reportElement.className = data.status.toLowerCase() + "-status";  // Apply fraud or safe styling
+
+            reportElement.innerHTML = `
+                <h3>Transaction Report</h3>
+                <table>
+                    <tr>
+                        <th>User ID</th>
+                        <td>${userId}</td>
+                    </tr>
+                    <tr>
+                        <th>Bank Name</th>
+                        <td>${bankName}</td>
+                    </tr>
+                    <tr>
+                        <th>Transaction Amount</th>
+                        <td>${transactionAmount.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <th>Location</th>
+                        <td>${transactionLocation}</td>
+                    </tr>
+                    <tr>
+                        <th>Transaction Type</th>
+                        <td>${transactionType}</td>
+                    </tr>
+                    <tr>
+                        <th>Frequency</th>
+                        <td>${frequency}</td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td class="${data.status.toLowerCase()}-status">${data.status}</td>
+                    </tr>
+                </table>
+            `;
+        })
+        .catch(error => {
+            const statusElement = document.getElementById('transaction-status');
+            statusElement.innerHTML = 'Error processing transaction.';
+        });
+    });
+</script>
+
+        
+        <!-- Table to display transaction details -->
+        <table>
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Bank</th>
+                    <th>Amount</th>
+                    <th>Location</th>
+                    <th>Type</th>
+                    <th>Frequency</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="transactions-table-body">
+                <!-- Data will be populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Robot Icon for Minimized Chatbox -->
+    <div class="robot-icon" id="robot-icon">
+        <img src='https://github.com/AkhilArya2023/Credit-Card-Fraud-Detection/blob/main/Chat%20AI.png?raw=true' alt="Chatbot"> <!-- You can replace this with any robot icon -->
+    </div>
+
+    <!-- Chatbox UI -->
+    <div class="chatbox-container" id="chatbox">
+        <div class="chatbox-header">AI Chat</div>
+        <div id="chatbox-messages" class="chatbox-messages">
+            <!-- Messages will appear here -->
+        </div>
+        <div class="chatbox-input">
+            <input type="text" id="user-message" placeholder="Ask me something..." />
+            <button id="send-message">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Fetching transaction data to populate the table
+        fetch('/get_transactions')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('transactions-table-body');
+                data.forEach(transaction => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = ` 
+                        <td>${transaction[1]}</td>
+                        <td>${transaction[2]}</td>
+                        <td>${transaction[3]}</td>
+                        <td>${transaction[4]}</td>
+                        <td>${transaction[5]}</td>
+                        <td>${transaction[6]}</td>
+                        <td>${transaction[7]}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            });
+
+        // Handle checking fraud/safe for a transaction
+        document.getElementById('check-status-button').addEventListener('click', function(event) {
+            event.preventDefault();
+
+            const userId = document.getElementById('user-id').value;
+            const bankName = document.getElementById('bank-name').value;
+            const transactionAmount = parseFloat(document.getElementById('transaction-amount').value);
+            const transactionLocation = document.getElementById('transaction-location').value;
+            const transactionType = document.getElementById('transaction-type').value;
+            const frequency = parseInt(document.getElementById('frequency').value);
+
+            if (!userId || !bankName || !transactionAmount || !transactionLocation || !transactionType || !frequency) {
+                alert('Please fill out all fields.');
+                return;
+            }
+
+            // Send the transaction details to the backend for fraud check
+            fetch('/process_transaction', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams ({
+                    user_id: userId,
+                    bank_name: bankName,
+                    transaction_amount: transactionAmount,
+                    transaction_location: transactionLocation,
+                    transaction_type: transactionType,
+                    frequency: frequency,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                const statusElement = document.getElementById('transaction-status');
+                statusElement.innerHTML = `Transaction Status: <strong>${data.status}</strong>`;
+
+                const tableBody = document.getElementById('transactions-table-body');
+                const row = document.createElement('tr');
+                row.innerHTML = ` 
+                    <td>${userId}</td>
+                    <td>${bankName}</td>
+                    <td>${transactionAmount}</td>
+                    <td>${transactionLocation}</td>
+                    <td>${transactionType}</td>
+                    <td>${frequency}</td>
+                    <td>${data.status}</td>
+                `;
+                tableBody.appendChild(row);
+            })
+            .catch(error => {
+                const statusElement = document.getElementById('transaction-status');
+                statusElement.innerHTML = 'Error processing transaction.';
+            });
+        });
+
+        // Handle sending a message in the chatbox
+      document.getElementById('send-message').addEventListener('click', function(event) {
+    // Prevent default form submission behavior (if inside a form)
+    event.preventDefault();
+
+    // Get user input
+    const userMessage = document.getElementById('user-message').value.trim();
+
+    if (userMessage === "") {
+        // If the message is empty, do nothing
+        return;
+    }
+
+    // Create a new div for the user's message
+    const userMessageContainer = document.createElement('div');
+    userMessageContainer.classList.add('user-message');
+    userMessageContainer.innerHTML = `<strong>You:</strong> ${userMessage}`;
+
+    // Append the user's message to the chatbox
+    document.getElementById('chatbox-messages').appendChild(userMessageContainer);
+
+    // Clear the input field after sending
+    document.getElementById('user-message').value = '';
+
+    // Optional: Scroll to the bottom of the chatbox
+    const chatboxMessages = document.getElementById('chatbox-messages');
+    chatboxMessages.scrollTop = chatboxMessages.scrollHeight;
+
+// Simulate AI response
+setTimeout(function() {
+    let aiResponse = "I don't understand that yet. Please ask something related to transaction status or fraud detection.";
+
+    // Check for specific keywords or phrases and provide the appropriate response
+    if (userMessage.includes("transaction status") || userMessage.includes("check transaction status")) {
+        aiResponse = "You can check your transaction status by entering the details of your recent transaction, such as your User ID, Bank Name, Amount, Location, and Type in the provided form.";
+    } else if (userMessage.includes("last payment status") || userMessage.includes("status of my last payment")) {
+        aiResponse = "Please provide your User ID and other transaction details, and I can fetch the status for you.";
+    } else if (userMessage.includes("successful transaction") || userMessage.includes("was the transaction successful")) {
+        aiResponse = "To check if your transaction was successful, please provide the transaction ID or relevant details, and I'll look it up.";
+    } else if (userMessage.includes("track payment")) {
+        aiResponse = "You can track your payment by entering the transaction details in the tracking form. I'll assist you in finding the payment status.";
+    } else if (userMessage.includes("transaction fee") && userMessage.includes("international")) {
+        aiResponse = "International transfer fees depend on your bank's policy. Would you like me to help you calculate that based on the transfer details?";
+    } else if (userMessage.includes("cancel pending transaction") || userMessage.includes("cancel transaction")) {
+        aiResponse = "Pending transactions can sometimes be canceled. Please provide the transaction ID or details, and I can guide you through the process.";
+    } else if (userMessage.includes("fraud") || userMessage.includes("transaction fraud")) {
+        aiResponse = "Let me check your recent transactions. Please provide the necessary details like transaction ID or User ID.";
+    } else if (userMessage.includes("last transaction details")) {
+        aiResponse = "I can fetch the details of your last transaction if you provide your User ID and any transaction identifiers.";
+    } else if (userMessage.includes("dispute transaction")) {
+        aiResponse = "To dispute a transaction, you will need to contact the merchant or bank directly. I can assist with initiating a dispute request if needed.";
+    } else if (userMessage.includes("summary of all transactions") && userMessage.includes("this month")) {
+        aiResponse = "You can get a summary by requesting a detailed report. I can generate that for you based on your account.";
+    } else if (userMessage.includes("status of bank transfer")) {
+        aiResponse = "Please share your bank transfer details so I can help you track the status.";
+    } else if (userMessage.includes("transaction declined") || userMessage.includes("why was my transaction declined")) {
+        aiResponse = "A transaction can be declined for several reasons such as insufficient funds, incorrect account details, or system errors. Please provide more details to help me understand the issue.";
+    } else if (userMessage.includes("change transaction limits")) {
+        aiResponse = "To change your transaction limits, you’ll need to contact your bank directly. I can help with the necessary steps if you need.";
+    } else if (userMessage.includes("transaction processed successfully") || userMessage.includes("check if my transaction was processed")) {
+        aiResponse = "Provide your transaction details, and I can help you confirm if it was processed successfully.";
+    } else if (userMessage.includes("current balance")) {
+        aiResponse = "You can view your account balance through your banking app or website, or I can assist you by checking if you log in to your account.";
+    } else if (userMessage.includes("transaction failed")) {
+        aiResponse = "A transaction failure occurs due to issues like insufficient funds, incorrect payment details, or network issues. Let me know the details, and I can help pinpoint the cause.";
+    } else if (userMessage.includes("expected time") && userMessage.includes("transaction complete")) {
+        aiResponse = "Transaction times vary by type. Online payments are usually processed instantly, while bank transfers might take 1-3 business days. Would you like more details based on your transaction type?";
+    } else if (userMessage.includes("secure payment online")) {
+        aiResponse = "For secure online payments, always use trusted payment platforms, verify the website’s SSL certificate, and ensure your payment details are encrypted.";
+    } else if (userMessage.includes("payment details")) {
+        aiResponse = "Please provide the payment ID or relevant details, and I can fetch the information for you.";
+    } else if (userMessage.includes("payment success or failure")) {
+        aiResponse = "I can check the status of your last payment if you provide your transaction details.";
+    } else if (userMessage.includes("verify transaction") && userMessage.includes("yesterday")) {
+        aiResponse = "I can help verify your transaction if you share the date and other relevant details with me.";
+    } else if (userMessage.includes("maximum transfer amount")) {
+        aiResponse = "The transfer limit depends on your bank. Please provide your bank name, and I can look up the information for you.";
+    } else if (userMessage.includes("cancel confirmed transaction")) {
+        aiResponse = "Once confirmed, cancellations are usually not possible. However, I can help you contact your bank to check if it can be reversed.";
+    } else if (userMessage.includes("wrong bank account details")) {
+        aiResponse = "If the transaction is still pending, it might be possible to correct it. Please contact your bank immediately for further assistance.";
+    } else if (userMessage.includes("refund failed transaction")) {
+        aiResponse = "Refunds for failed transactions can be requested through your bank or merchant. I can assist in getting the process started.";
+    } else if (userMessage.includes("flagged suspicious")) {
+        aiResponse = "A transaction could be flagged for reasons like unusual spending behavior, foreign transactions, or mismatched account details. Let me check your transaction for further details.";
+    } else if (userMessage.includes("transaction fees") && userMessage.includes("account")) {
+        aiResponse = "You can check transaction fees in your account settings or by contacting your bank directly.";
+    } else if (userMessage.includes("payment pending")) {
+        aiResponse = "I can help check if a payment is pending if you provide the relevant transaction information.";
+    } else if (userMessage.includes("transaction processed")) {
+        aiResponse = "You can check your transaction status on the bank’s platform, or I can help you verify the status by looking it up.";
+    } else if (userMessage.includes("report six months")) {
+        aiResponse = "Yes, I can generate a report for you. Please share your account information to get started.";
+    } else if (userMessage.includes("track payment from another bank")) {
+        aiResponse = "Yes, tracking payments from another bank is possible. Please provide the transaction details, and I can assist.";
+    } else if (userMessage.includes("check transaction status")) {
+        aiResponse = "You’ll need to provide your User ID, transaction ID, and any other relevant details to help me find your transaction status.";
+    } else if (userMessage.includes("real-time transaction status")) {
+        aiResponse = "Yes, real-time transaction status can be viewed through your bank’s online platform or via the tracking tool provided.";
+    } else if (userMessage.includes("pending transaction reasons")) {
+        aiResponse = "Pending transactions can occur due to network delays, insufficient funds, or awaiting verification from your bank. I can help identify the cause.";
+    } else if (userMessage.includes("update payment information")) {
+        aiResponse = "You can update your payment information through your bank’s app or website, or I can assist you with the process.";
+    } else if (userMessage.includes("fraud protection")) {
+        aiResponse = "Most banks provide protection through encryption, fraud detection systems, and secure login methods. Ensure you use secure websites and trusted payment platforms.";
+    } else if (userMessage.includes("verify bank details")) {
+        aiResponse = "You can verify your bank details with your bank’s support team, or I can guide you through the security verification process.";
+    } else if (userMessage.includes("overview last 10 transactions")) {
+        aiResponse = "Yes, I can show you the details of your last 10 transactions if you provide your account details.";
+    } else if (userMessage.includes("transaction under review")) {
+        aiResponse = "A transaction under review usually means it's being scrutinized for security or fraud concerns. Contact your bank for more information.";
+    } else if (userMessage.includes("check transaction processed by bank")) {
+        aiResponse = "You can check the status on your bank’s platform or I can assist you by looking up your transaction details.";
+    } else if (userMessage.includes("track initiated payment")) {
+        aiResponse = "Yes, you can track the status of initiated payments via your bank’s tracking system or by providing transaction details.";
+    } else if (userMessage.includes("unauthorized transaction")) {
+        aiResponse = "If you suspect unauthorized activity, contact your bank immediately to report the transaction and secure your account.";
+    } else if (userMessage.includes("pending transaction completion")) {
+        aiResponse = "Pending transactions typically have an estimated completion time, which you can check through your bank or payment service.";
+    } else if (userMessage.includes("verify international transaction")) {
+        aiResponse = "I can help verify international transactions if you provide the transaction details.";
+    } else if (userMessage.includes("payment went through")) {
+        aiResponse = "You can confirm if your payment was successful by checking the status through your bank’s app or website.";
+    } else if (userMessage.includes("dispute with merchant")) {
+        aiResponse = "To dispute a transaction, contact the merchant with your proof of payment, and follow the bank’s dispute process.";
+    } else if (userMessage.includes("fraud flagged transaction")) {
+        aiResponse = "Let me check if your recent transaction was flagged. Please provide your transaction details.";
+    } else if (userMessage.includes("track mobile payment")) {
+        aiResponse = "You can track payments made via mobile banking by checking your transaction history within the mobile banking app.";
+    } else if (userMessage.includes("statement recent transactions")) {
+        aiResponse = "You can download a statement for recent transactions through your online banking portal or mobile app.";
+    } else if (userMessage.includes("pending transaction stuck")) {
+        aiResponse = "If your transaction is stuck in pending status, contact your bank for assistance, or I can help you troubleshoot further.";
+    }
+
+  
+   
+
+                // Return the AI response
+            const aiMessageContainer = document.createElement('div');
+        aiMessageContainer.classList.add('ai-message');
+        aiMessageContainer.innerHTML = `<strong>AI:</strong> ${aiResponse}`;
+        document.getElementById('chatbox-messages').appendChild(aiMessageContainer);
+
+        // Scroll to the bottom of the chatbox
+        const chatboxMessages = document.getElementById('chatbox-messages');
+        chatboxMessages.scrollTop = chatboxMessages.scrollHeight;
+    }, 1000);
+
+    // Clear the input field
+    document.getElementById('user-message').value = '';
+});
+
+
+        // Toggle the chatbox visibility when robot icon is clicked
+        document.getElementById('robot-icon').addEventListener('click', function() {
+            const chatbox = document.getElementById('chatbox');
+            const robotIcon = document.getElementById('robot-icon');
+
+            if (chatbox.style.display === 'none' || chatbox.style.display === '') {
+                chatbox.style.display = 'flex'; // Show the chatbox
+                robotIcon.classList.add('hidden'); // Hide the robot icon
+            } else {
+                chatbox.style.display = 'none'; // Hide the chatbox
+                robotIcon.classList.remove('hidden'); // Show the robot icon
+            }
+        });
+  // Logout functionality
+        document.getElementById('logout-button').addEventListener('click', function() {
+            window.location.href = 'http://127.0.0.1:8000/login.html'; 
+        });
+		// Contact Us button functionality
+document.getElementById('contact-us-button').addEventListener('click', function() {
+    window.location.href = 'http://127.0.0.1:8000/contact.html';  // Redirect to contact page
+});
+
+    </script>
+</body>
+</html>
