@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        /* General body styling */
+        body {
+            background: url(https://github.com/AkhilArya2023/Credit-Card-Fraud-Detection/blob/main/WhatsApp%20Image%202024-11-19%20at%2005.39.45_eab4b983.jpg?raw=true) no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+            overflow: hidden; /* Prevent scrolling */
+            flex-direction: column; /* Stack elements vertically */
+            justify-content: flex-start; /* Align content to the top */
+        }
+
+        /* Welcome container with blur and transparency */
+        .welcome-container {
+            text-align: center;
+            padding: 50px;
+            background: rgba(0, 0, 0, 0.5); /* Transparent background */
+            border-radius: 15px;
+            width: 80%;
+            max-width: 800px;
+            backdrop-filter: blur(10px); /* Blur effect */
+            animation: fadeIn 2s ease-out;
+            margin-bottom: 50px; /* Add space below the welcome message */
+        }
+
+        /* Welcome title with animation */
+        .welcome-container h1 {
+            font-size: 3rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 600;
+            color: #00FF00;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+            animation: slideInLeft 1.5s ease-out;
+        }
+
+        /* Welcome paragraph with smooth animation */
+        .welcome-container p {
+            font-size: 1.25rem;
+            margin: 10px 0;
+            color: #ffffff;
+            opacity: 0;
+            animation: fadeInText 2s 1.5s forwards;
+        }
+
+        /* Login box styling */
+        .login-box {
+            background-color: rgba(0, 0, 0, 0.6); /* Slightly transparent black background */
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px); /* Optional: adds a blur effect to the background */
+            animation: fadeInUp 1s ease-out;
+        }
+
+        /* Login title */
+        .login-box h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #00FF00;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Input fields styling */
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.1); /* Transparent background */
+            color: white;
+            transition: 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.3); /* Light background on focus */
+            border: 2px solid #00FF00;
+        }
+
+        /* Button styling */
+        button {
+            background-color: #00FF00;
+            color: white;
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #33cc33;
+        }
+
+        /* Add animations for fading in and sliding */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes fadeInText {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInLeft {
+            0% { opacity: 0; transform: translateX(-100%); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Welcome message section -->
+    <div class="welcome-container">
+        <h1>Welcome to Your Secure Portal</h1>
+        <p>Log in to access all your transaction details and manage your account.</p>
+    </div>
+
+    <!-- Login form section -->
+    <div class="login-box">
+        <h2>Login</h2>
+        <form action="/process_login" method="POST">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+</body>
+</html>
