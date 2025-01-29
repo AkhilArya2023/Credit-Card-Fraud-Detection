@@ -1,0 +1,19 @@
+ID,Bank_Name,Transaction_Amount,Transaction_Location,Transaction_Type,Frequency,Result
+ID_1,Axis Bank,0.0,,ATM,12,Fraud
+ID_1,Axis Bank,0.0,,ATM,12,Fraud
+ID_1,Axis Bank,0.0,,ATM,12,Fraud
+ID_1,Axis Bank,0.0,,ATM,12,Fraud
+ID_1,SBI,0.0,,ATM,2,Safe
+ID_1,SBI,0.0,,ATM,2,Safe
+ID_1,SBI,0.0,,ATM,2,Safe
+ID_1,SBI,0.0,,ATM,2,Safe
+ID_3,Axis Bank,0.0,Unknown,ATM Withdrawal,2,Safe
+ID_3,Axis Bank,0.0,Unknown,ATM Withdrawal,2,Safe
+ID_3,Axis Bank,0.0,Unknown,ATM Withdrawal,2,Safe
+ID_3,Axis Bank,0.0,Unknown,ATM Withdrawal,2,Safe
+ID_3,Axis Bank,0.0,Unknown,ATM Withdrawal,2,Safe
+ID_3,Axis Bank,0.0,Unknown,ATM Withdrawal,2,Safe
+ID_3,Axis Bank,0.0,Unknown,ATM Withdrawal,2,Safe
+ID_3,Axis Bank,0.0,Unknown,ATM Withdrawal,2,Safe
+ID_3,Axis Bank,0.0,Unknown,ATM Withdrawal,2,Safe
+ID_3,Axis Bank,0.0,Unknown,ATM Withdrawal,2,Safe
